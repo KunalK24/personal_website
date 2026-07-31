@@ -59,8 +59,8 @@ export const site = {
   },
   about: [
     "I'm a senior backend engineer who's spent most of my career supporting live service games and building tools to empower other engineers. At Blizzard, I worked on the server and gameplay teams to bring new content in Hearthstone to millions of players. On the Playstation team, I worked on integrating ML models into the Trust and Safety platform to detect harmful content shared on the Playstation Network.",
-    "Lately I've been working on integrating models into real use cases for engineers, from model evaluation to LLM-generated test cases.",
-    "Away from my IDE, cooking and music are my passion. You'll find me either putting together a new playlist or experimenting with whatever's in my fridge.",
+    "Lately I've been working on integrating models into real use cases for engineers, from model evaluation to LLM-generated test cases. Also experimenting with some embedded programming hoping to make some fun gadgets on the side.",
+    "Away from my IDE, cooking and TFT are my passion. You'll find me experimenting with whatever's in my fridge or queuing up for a TFT game hoping to hit Challenger!",
   ],
   cooking: {
     intro:
@@ -68,7 +68,7 @@ export const site = {
   },
   contact: {
     title: "Let's talk.",
-    body: "I'm open to senior backend and AI-platform roles. The fastest way to reach me is email - or find me in the usual places.",
+    body: "I'm open to mid/senior backend and full-stack roles. The fastest way to reach me is email or LinkedIn!",
     links: [
       { href: 'mailto:kunaldk98@gmail.com', label: 'Email me' },
       { href: 'https://github.com/KunalK24', label: 'GitHub', variant: 'ghost' },
