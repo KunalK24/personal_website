@@ -1,0 +1,111 @@
+---
+import { projects } from '../../data/projects';
+---
+
+<section id="projects" class="section">
+  <div class="wrap">
+    <p class="eyebrow">Projects</p>
+    <ul class="projects">
+      {projects.map((project) => (
+        <li class="project">
+          <div class="project__head">
+            <h3 class="project__name">{project.name}</h3>
+            {project.status && <span class="project__status">{project.status}</span>}
+          </div>
+          <p class="project__blurb prose">{project.blurb}</p>
+          <div class="project__meta">
+            <ul class="tags">
+              {project.tags.map((tag) => <li class="tag">{tag}</li>)}
+            </ul>
+            <div class="project__links">
+              {project.links.map((link) => (
+                <a href={link.href}>{link.label} &rarr;</a>
+              ))}
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .projects {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .project {
+    padding-block: 1.75rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .project:first-child {
+    border-top: none;
+    padding-top: 0.5rem;
+  }
+
+  .project__head {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .project__name {
+    font-size: 1.4rem;
+    margin: 0;
+  }
+
+  .project__status {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--clay);
+    border: 1px solid color-mix(in srgb, var(--clay) 45%, var(--line));
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+  }
+
+  .project__blurb {
+    color: var(--ink-soft);
+    margin: 0.6rem 0 1rem;
+  }
+
+  .project__meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .tag {
+    font-size: 0.8rem;
+    color: var(--olive-deep);
+    background: #eaeede;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+  }
+
+  .project__links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .project__links a {
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+</style>

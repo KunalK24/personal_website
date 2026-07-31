@@ -1,0 +1,29 @@
+---
+import ButtonLink from '../ButtonLink.astro';
+import { site } from '../../data/site';
+---
+
+<section id="contact" class="section contact">
+  <div class="wrap">
+    <p class="eyebrow">Contact</p>
+    <h2 class="contact__title">{site.contact.title}</h2>
+    <p class="prose">{site.contact.body}</p>
+    <div class="contact__links">
+      {site.contact.links.map((link) => <ButtonLink {...link} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact__title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin: 0 0 0.8rem;
+  }
+
+  .contact__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1.5rem;
+  }
+</style>

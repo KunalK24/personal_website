@@ -1,0 +1,25 @@
+---
+type NavLink = {
+  href: string;
+  label: string;
+};
+
+type Props = {
+  brand: string;
+  links: NavLink[];
+};
+
+const { brand, links } = Astro.props;
+---
+
+<nav class="nav" aria-label="Primary">
+  <a href="#top" class="nav__brand">{brand}</a>
+
+  <ul class="nav__menu">
+    {links.map((link) => (
+      <li>
+        <a href={link.href}>{link.label}</a>
+      </li>
+    ))}
+  </ul>
+</nav>
