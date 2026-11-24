@@ -1,109 +1,72 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { site } from '../../data/site';
 
-type Props = {
-  posts: CollectionEntry<'cooking'>[];
-};
-
+type Props = { posts: CollectionEntry<'cooking'>[] };
 const { posts } = Astro.props;
-const fmtDate = (date: Date) =>
-  date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+const fmtDate = (date: Date) => date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
 ---
 
-<section id="cooking" class="section">
+<section id="cooking" class="cooking-section" aria-labelledby="cooking-title">
   <div class="wrap">
-    <p class="eyebrow">Cooking</p>
-    <p class="prose cooking__intro">{site.cooking.intro}</p>
-    <ul class="cooking">
-      {posts.map((post) => (
-        <li class="dish">
-          <div class="dish__photo">
-            {post.data.image ? (
-              <Image src={post.data.image} alt={post.data.title} loading="lazy" />
-            ) : (
-              <div class="dish__photo--empty" aria-hidden="true">Cooking</div>
-            )}
-          </div>
-          <div class="dish__body">
-            <h3 class="dish__title">{post.data.title}</h3>
-            <p class="dish__date">{fmtDate(post.data.date)}</p>
-            <p class="dish__note">{post.data.note}</p>
-          </div>
-        </li>
-      ))}
-    </ul>
+    <div class="cooking__header">
+      <div>
+        <p class="section-label">Away from the keyboard</p>
+        <h2 id="cooking-title" class="section-heading">Cooking</h2>
+      </div>
+      <p>I keep a few photos and notes from things I've made. Some worked on the first try; others are still getting there.</p>
+    </div>
+    <div class="cooking-carousel" data-cooking-carousel>
+      <button class="cooking-arrow cooking-arrow--prev" type="button" aria-label="Previous dishes" aria-controls="cooking-list" data-cooking-prev disabled>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m15 5-7 7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </button>
+      <ul id="cooking-list" class="cooking-grid" data-cooking-track>
+        {posts.map((post) => (
+          <li class="dish">
+            <div class="dish__image">
+              {post.data.image && <Image src={post.data.image} alt={post.data.title} loading="lazy" />}
+            </div>
+            <div class="dish__info">
+              <p class="dish__date">{fmtDate(post.data.date)}</p>
+              <h3 class="dish__title">{post.data.title}</h3>
+              <p class="dish__note">{post.data.note}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <button class="cooking-arrow cooking-arrow--next" type="button" aria-label="Next dishes" aria-controls="cooking-list" data-cooking-next>
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m9 5 7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </button>
+    </div>
   </div>
 </section>
 
-<style>
-  .cooking__intro {
-    color: var(--ink-soft);
-    margin-bottom: 2rem;
-  }
+<script>
+  const carousel = document.querySelector<HTMLElement>('[data-cooking-carousel]');
+  const track = carousel?.querySelector<HTMLElement>('[data-cooking-track]');
+  const previous = carousel?.querySelector<HTMLButtonElement>('[data-cooking-prev]');
+  const next = carousel?.querySelector<HTMLButtonElement>('[data-cooking-next]');
 
-  .cooking {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1.5rem;
-  }
+  if (track && previous && next) {
+    const updateButtons = () => {
+      previous.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
+    };
+    const scrollDish = (direction: number) => {
+      const dishes = [...track.querySelectorAll<HTMLElement>('.dish')];
+      if (!dishes.length) return;
+      const current = dishes.reduce((nearest, dish, index) =>
+        Math.abs(dish.offsetLeft - track.scrollLeft) < Math.abs(dishes[nearest].offsetLeft - track.scrollLeft)
+          ? index
+          : nearest, 0);
+      const target = dishes[Math.max(0, Math.min(dishes.length - 1, current + direction))];
+      track.scrollTo({ left: target.offsetLeft, behavior: 'smooth' });
+    };
 
-  .dish {
-    background: var(--bg-raised);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    previous.addEventListener('click', () => scrollDish(-1));
+    next.addEventListener('click', () => scrollDish(1));
+    track.addEventListener('scroll', updateButtons, { passive: true });
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
   }
-
-  .dish__photo {
-    aspect-ratio: 4 / 3;
-    background: #eaeede;
-  }
-
-  .dish__photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .dish__photo--empty {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    place-items: center;
-    color: var(--olive-deep);
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    opacity: 0.65;
-  }
-
-  .dish__body {
-    padding: 1.1rem 1.2rem 1.3rem;
-  }
-
-  .dish__title {
-    font-size: 1.15rem;
-    margin: 0 0 0.2rem;
-  }
-
-  .dish__date {
-    font-size: 0.8rem;
-    color: var(--olive-deep);
-    margin: 0 0 0.6rem;
-    letter-spacing: 0.02em;
-  }
-
-  .dish__note {
-    color: var(--ink-soft);
-    font-size: 0.96rem;
-    margin: 0;
-  }
-</style>
+</script>

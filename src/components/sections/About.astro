@@ -1,18 +1,13 @@
----
-import { site } from '../../data/site';
----
-
-<section id="about" class="section">
-  <div class="wrap">
-    <p class="eyebrow">About</p>
-    <div class="prose about">
-      {site.about.map((paragraph) => <p>{paragraph}</p>)}
+<section id="about" class="about-section" aria-labelledby="about-title">
+  <div class="wrap about__grid">
+    <div>
+      <h2 id="about-title" class="section-heading about__title">About</h2>
+    </div>
+    <div class="about__story">
+      <p>My first job was working on an indie game called One Lonely Output at Aurorian Studios. While I was on the team, I wore multiple hats building CI/CD pipelines, implementing game features, and building discord bots.</p>
+      <p>I moved over to the Hearthstone team at Blizzard Entertainment to ship new content to millions of players. As a server and gameplay engineer, I got to build backend systems like a customer support pipeline and a hot reloading system.</p>
+      <p>At Playstarion, I helped bring machine learning models into content moderation pipelines for the PlayStation Network on the trust and safety team. I also designed an automated test suite with AI workflows on the game validation team for the PS to PC SDK.</p>
+      <p>Recently, I've been spending time building projects in my spare time and exploring how AI can accelerate development. I'm currently building an app called Pantry to help cut down on food wastage and grcoery costs.</p>
     </div>
   </div>
 </section>
-
-<style>
-  .about p {
-    font-size: 1.08rem;
-  }
-</style>

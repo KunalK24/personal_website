@@ -1,60 +1,39 @@
 ---
-import Avatar from '../Avatar.astro';
 import ButtonLink from '../ButtonLink.astro';
-import { site } from '../../data/site';
 ---
 
-<section class="section hero">
-  <div class="wrap hero__grid">
-    <Avatar />
-
-    <div class="hero__text">
-      <p class="eyebrow">{site.hero.eyebrow}</p>
-      <h1 class="hero__title">
-        {site.hero.title.line}<br />
-      </h1>
-      <p class="hero__lede prose">{site.hero.lede}</p>
-      <div class="hero__cta">
-        {site.hero.actions.map((action) => <ButtonLink {...action} />)}
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero__layout">
+    <div class="hero__copy">
+      <p class="hero__eyebrow">Kunal Kathuria <span>/</span> Software engineer</p>
+      <h1 id="hero-title">Building immersive worlds and  <span>exploring AI.</span></h1>
+      <p class="hero__intro">I'm Kunal, a software engineer currently based in Los Angeles and open to relocating. I've spent six years building for live service games and online platforms at Blizzard and PlayStation. I'm looking for my next role on a fast-moving team building from the ground up.</p>
+      <div class="hero__actions">
+        <ButtonLink href="#projects" label="See my projects" />
+        <ButtonLink href="mailto:kunaldk98@gmail.com" label="Email me" variant="ghost" />
+      </div>
+    </div>
+    <div class="hero__work" aria-hidden="true">
+      <div class="hero__work-card hero__work-card--aurorian">
+        <span>Aurorian Studios</span>
+        <strong>DevOps &amp; Gameplay</strong>
+        <i></i>
+      </div>
+      <div class="hero__work-card hero__work-card--blizzard">
+        <span>Blizzard Entertainment</span>
+        <strong>Server &amp; Gameplay</strong>
+        <i></i>
+      </div>
+      <div class="hero__work-card hero__work-card--playstation">
+        <span>Playstation</span>
+        <strong>Trust &amp; Safety</strong>
+        <i></i>
+      </div>
+      <div class="hero__work-card hero__work-card--pantry">
+        <span>Pantry</span>
+        <strong>Personal project</strong>
+        <i></i>
       </div>
     </div>
   </div>
 </section>
-
-<style>
-  .hero__grid {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: clamp(1.5rem, 5vw, 3.5rem);
-    align-items: center;
-  }
-
-  .hero__title {
-    font-size: clamp(1.9rem, 4.4vw, 3rem);
-    margin: 0 0 1.25rem;
-  }
-
-  .hero__lede {
-    color: var(--ink-soft);
-    font-size: 1.12rem;
-  }
-
-  .hero__cta {
-    display: flex;
-    gap: 0.85rem;
-    margin-top: 1.75rem;
-    flex-wrap: wrap;
-  }
-
-  @media (max-width: 640px) {
-    .hero__grid {
-      grid-template-columns: 1fr;
-      text-align: left;
-      justify-items: start;
-    }
-
-    .hero__title br {
-      display: none;
-    }
-  }
-</style>

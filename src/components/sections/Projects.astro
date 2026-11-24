@@ -1,26 +1,78 @@
 ---
+import { Image } from 'astro:assets';
 import { projects } from '../../data/projects';
+import pasta from '../../assets/pantry/pasta.png';
+import appleTart from '../../assets/pantry/apple-tart.png';
+import lemonCake from '../../assets/pantry/lemon-cake.png';
 ---
 
-<section id="projects" class="section">
+<section id="projects" class="projects-section" aria-labelledby="projects-title">
   <div class="wrap">
-    <p class="eyebrow">Projects</p>
-    <ul class="projects">
+    <div class="projects__header">
+      <div>
+        <p class="section-label">Work</p>
+        <h2 id="projects-title" class="section-heading">Projects</h2>
+      </div>
+      <p>Check out what I've working on in my free time!</p>
+    </div>
+    <ul class="project-list">
       {projects.map((project) => (
-        <li class="project">
-          <div class="project__head">
-            <h3 class="project__name">{project.name}</h3>
-            {project.status && <span class="project__status">{project.status}</span>}
+        <li class:list={['project', `project--${project.visual}`]}>
+          <div class="project__visual" aria-hidden="true">
+            <span class="preview-label">Illustrative project visual</span>
+            {project.visual === 'pantry' ? (
+              <div class="pantry-window">
+                <div class="window-bar">
+                  <span class="window-dots"><i></i><i></i><i></i></span>
+                  <span>pantry / recipes</span>
+                </div>
+                <div class="pantry-window__content">
+                  <div class="pantry-window__side">
+                    <strong>pantry<span>.</span></strong>
+                    <i></i><i></i><i></i>
+                  </div>
+                  <div class="pantry-window__main">
+                    <h4>Recipe Book</h4>
+                    <div class="pantry-tiles">
+                      <div class="pantry-tile"><Image src={pasta} width={160} height={120} alt="" /><small>Tomato pasta</small></div>
+                      <div class="pantry-tile"><Image src={appleTart} width={160} height={120} alt="" /><small>Apple tart</small></div>
+                      <div class="pantry-tile"><Image src={lemonCake} width={160} height={120} alt="" /><small>Lemon cake</small></div>
+                    </div>
+                    <div class="pantry-window__footer"><span>Recipe ideas</span><b></b></div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div class="battle-window">
+                <div class="window-bar">
+                  <span class="window-dots"><i></i><i></i><i></i></span>
+                  <span>ai battle royal / arena</span>
+                </div>
+                <div class="battle-window__content">
+                  <p class="battle-window__eyebrow">Challenge in progress</p>
+                  <h4>One problem. Different approaches.</h4>
+                  <div class="battle-window__agents">
+                    <div class="battle-agent">
+                      <span>Agent A</span>
+                      <i></i><i></i><i></i>
+                    </div>
+                    <div class="battle-agent">
+                      <span>Agent B</span>
+                      <i></i><i></i><i></i>
+                    </div>
+                  </div>
+                  <div class="battle-window__footer">Watching the solutions take shape</div>
+                </div>
+              </div>
+            )}
           </div>
-          <p class="project__blurb prose">{project.blurb}</p>
-          <div class="project__meta">
-            <ul class="tags">
-              {project.tags.map((tag) => <li class="tag">{tag}</li>)}
-            </ul>
-            <div class="project__links">
-              {project.links.map((link) => (
-                <a href={link.href}>{link.label} &rarr;</a>
-              ))}
+          <div class="project__body">
+            <p class="project__type">{project.category}</p>
+            <h3 class="project__name">{project.name}</h3>
+            <p class="project__blurb">{project.blurb}</p>
+            <div class="project__end">
+              <ul class="project__tags">{project.tags.map((tag) => <li>{tag}</li>)}</ul>
+              <a class="text-link" href={project.href}>{project.linkLabel}</a>
             </div>
           </div>
         </li>
@@ -28,84 +80,3 @@ import { projects } from '../../data/projects';
     </ul>
   </div>
 </section>
-
-<style>
-  .projects {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .project {
-    padding-block: 1.75rem;
-    border-top: 1px solid var(--line);
-  }
-
-  .project:first-child {
-    border-top: none;
-    padding-top: 0.5rem;
-  }
-
-  .project__head {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-  }
-
-  .project__name {
-    font-size: 1.4rem;
-    margin: 0;
-  }
-
-  .project__status {
-    font-family: var(--sans);
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--clay);
-    border: 1px solid color-mix(in srgb, var(--clay) 45%, var(--line));
-    padding: 0.15rem 0.5rem;
-    border-radius: 999px;
-  }
-
-  .project__blurb {
-    color: var(--ink-soft);
-    margin: 0.6rem 0 1rem;
-  }
-
-  .project__meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .tag {
-    font-size: 0.8rem;
-    color: var(--olive-deep);
-    background: #eaeede;
-    padding: 0.2rem 0.6rem;
-    border-radius: 999px;
-  }
-
-  .project__links {
-    display: flex;
-    gap: 1rem;
-  }
-
-  .project__links a {
-    font-weight: 500;
-    font-size: 0.95rem;
-    text-decoration: none;
-  }
-</style>

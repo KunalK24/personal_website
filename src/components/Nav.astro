@@ -13,7 +13,7 @@ const { brand, links } = Astro.props;
 ---
 
 <nav class="nav" aria-label="Primary">
-  <a href="#top" class="nav__brand">{brand}</a>
+  <a href="#top" class="nav__brand" aria-label={`${brand}, back to top`}>Kunal<span>.</span></a>
 
   <ul class="nav__menu">
     {links.map((link) => (

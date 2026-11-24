@@ -1,29 +1,23 @@
 ---
 import ButtonLink from '../ButtonLink.astro';
-import { site } from '../../data/site';
 ---
 
-<section id="contact" class="section contact">
-  <div class="wrap">
-    <p class="eyebrow">Contact</p>
-    <h2 class="contact__title">{site.contact.title}</h2>
-    <p class="prose">{site.contact.body}</p>
-    <div class="contact__links">
-      {site.contact.links.map((link) => <ButtonLink {...link} />)}
+<section id="contact" class="contact-section" aria-labelledby="contact-title">
+  <div class="wrap contact__grid">
+    <div>
+      <p class="section-label">Contact</p>
+      <h2 id="contact-title">Reach out if you want to connect!</h2>
+    </div>
+    <div class="contact__details">
+      <p>I'm open to mid and senior level product-focused and forward deployed roles and happy to relocate! Email is the best way to reach me.</p>
+      <div class="contact__links">
+        <ButtonLink href="mailto:kunaldk98@gmail.com" label="Email me" />
+        <ButtonLink href="/Kunal_Kathuria_Resume.pdf" label="View resume" variant="ghost" />
+      </div>
+      <div class="contact__social">
+        <a href="https://github.com/KunalK24">GitHub</a>
+        <a href="https://www.linkedin.com/in/kathuria-kunal/">LinkedIn</a>
+      </div>
     </div>
   </div>
 </section>
-
-<style>
-  .contact__title {
-    font-size: clamp(2rem, 5vw, 3rem);
-    margin: 0 0 0.8rem;
-  }
-
-  .contact__links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.85rem;
-    margin-top: 1.5rem;
-  }
-</style>

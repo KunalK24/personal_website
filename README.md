@@ -1,10 +1,14 @@
-# Personal Website
+# Kunal Kathuria's website
 
-Very minimal personal website that I used to display projects, cooking pictures, and some basic info about myself.
+An Astro portfolio for Kunal Kathuria, featuring engineering work, background, a cooking journal, and contact links.
 
-# Content
+## Develop
 
-- About
-- Cooking journal
-- Projects
-- Contact section
+```sh
+npm install
+npm run dev
+```
+
+Run `npm run build` to generate the static site in `dist/`.
+
+Project details live in `src/data/projects.ts`; cooking entries and photos live in `src/content/cooking/`.
